@@ -25,23 +25,23 @@ home.screen={
                 end
             end,
             draw=function(self)
-                gui.write(self.text,400,300,{0.5,1,0.75})
+                gui.write(self.text,400,200,{0.5,1,0.75})
             end
         }
 
         --creating gui elements ("shii" -ariana grande)
         guiobj={}
-        table.insert(guiobj,gui.addButton(400,450,100,30,
+        table.insert(guiobj,gui.addButton(370,195,100,30,
         function(self)
             if(not coin.flip)then
             coin.flip=true end
         end,
-        "flip coin",{1,0,1}))
+        "flip coin",{1,0,1},false))
 
-        table.insert(guiobj, gui.addToggle(400,400,25,25,{{1,0,0},{0,0,1}},{"heads","tails"}))
-        table.insert(guiobj,gui.addOptionPicker(500,50,{5,10,25,50,"all in"}))
+        table.insert(guiobj, gui.addToggle(375,400,25,25,{{1,0,0},{0,0,1}},{"call it heads","call it tails"}))
+        table.insert(guiobj,gui.addOptionPicker(350,300,{5,10,25,50,"all in"}))
 
-        table.insert(guiobj,gui.addButton(300,500,75,20,
+        table.insert(guiobj,gui.addButton(10,570,75,20,
         function(self)
             love.event.quit() --add saving here. likely wont end up needing s&q menu cause im just that cool dunno what ill do about mobile tho
         end,
