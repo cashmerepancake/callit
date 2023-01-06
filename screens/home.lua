@@ -4,11 +4,10 @@ local helper=require'extensions.helper' --loading extensions
 
 local home={}
 home.screen={
-    switchScreen="",
     load=function(self)
         --#globals#--
         called=false --true heads, false tails
-        bet=0 --gui determined cash variable 
+        bet=0 --gui determined cash variable
         cash,hasadded=100,false --cash variables
 
         --creating coin, this will have more meaning when we have graphics/audio
@@ -39,12 +38,12 @@ home.screen={
         end,
         "flip coin",{1,0,1}))
 
-        table.insert(guiobj, gui.addToggle(400,400,25,25))
+        table.insert(guiobj, gui.addToggle(400,400,25,25,{{1,0,0},{0,0,1}},{"heads","tails"}))
         table.insert(guiobj,gui.addOptionPicker(500,50,{5,10,25,50,"all in"}))
 
         table.insert(guiobj,gui.addButton(300,500,75,20,
         function(self)
-            self.switchScreen="menu.exit"
+            love.event.quit() --add saving here. likely wont end up needing s&q menu cause im just that cool dunno what ill do about mobile tho
         end,
         "exit",{0,0,1}))
     end,
@@ -67,17 +66,12 @@ home.screen={
 
         --make sure to utilize save files to keep money otherwise its worthless
         --ask ostrich about balancing ideas?
-        if( ((called and coin.text=="heads")and not hasadded) or ((not called and coin.text=="tails")and not hasadded))then
+        if( ((called and coin.text=="heads")and not hasadded) or ((not called and coin.text=="tails")and not hasadded))then --smallest todo, make hasadded not redundant lol
             cash=cash+bet hasadded=true
         elseif( ((called and coin.text=="tails")and not hasadded) or ((not called and coin.text=="heads")and not hasadded))then
             cash=cash-bet hasadded=true end
     end,
-    draw=function(self)
-        if(called)then --maybe add optional label to toggle object cause this feels oddly disconnected
-            gui.write("heads",400,375)
-        elseif(not called)then
-            gui.write("tails",400,375)end
-                
+    draw=function(self)                
         for i=1,#guiobj do
             guiobj[i]:draw()end
 
